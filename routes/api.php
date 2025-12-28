@@ -15,9 +15,9 @@ use App\Http\Controllers\AuthController;
 */
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -40,11 +40,9 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 | JUGADORES
 |--------------------------------------------------------------------------
 */
-// Lectura pública
 Route::get('/jugadores', [JugadorController::class, 'index']);
 Route::get('/jugadores/{jugador}', [JugadorController::class, 'show']);
 
-// Modificación solo ADMIN
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/jugadores', [JugadorController::class, 'store']);
     Route::put('/jugadores/{jugador}', [JugadorController::class, 'update']);
@@ -56,11 +54,9 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 | LIGAS
 |--------------------------------------------------------------------------
 */
-// Lectura pública
 Route::get('/ligas', [LigaController::class, 'index']);
 Route::get('/ligas/{liga}', [LigaController::class, 'show']);
 
-// Modificación solo ADMIN
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/ligas', [LigaController::class, 'store']);
     Route::put('/ligas/{liga}', [LigaController::class, 'update']);
@@ -72,11 +68,9 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 | PARTIDOS
 |--------------------------------------------------------------------------
 */
-// Lectura pública
 Route::get('/partidos', [PartidoController::class, 'index']);
 Route::get('/partidos/{partido}', [PartidoController::class, 'show']);
 
-// Modificación solo ADMIN
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/partidos', [PartidoController::class, 'store']);
     Route::put('/partidos/{partido}', [PartidoController::class, 'update']);

@@ -15,11 +15,12 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->user() || ! $request->user()->is_admin) {
+        if (! $request->user() || $request->user()->is_admin != 1) {
             return response()->json(['message' => 'No autorizado'], 403);
         }
 
         return $next($request);
     }
 }
+
 
