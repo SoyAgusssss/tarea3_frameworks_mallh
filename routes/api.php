@@ -9,9 +9,7 @@ use App\Http\Controllers\PartidoController;
 use App\Http\Controllers\AuthController;
 
 /*
-|--------------------------------------------------------------------------
 | AUTENTICACIÓN
-|--------------------------------------------------------------------------
 */
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -20,15 +18,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /*
-|--------------------------------------------------------------------------
 | CLUBES
-|--------------------------------------------------------------------------
 */
-// Lectura pública
 Route::get('/clubs', [ClubController::class, 'index']);
 Route::get('/clubs/{club}', [ClubController::class, 'show']);
 
-// Modificación solo ADMIN
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/clubs', [ClubController::class, 'store']);
     Route::put('/clubs/{club}', [ClubController::class, 'update']);
@@ -36,9 +30,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
 | JUGADORES
-|--------------------------------------------------------------------------
 */
 Route::get('/jugadores', [JugadorController::class, 'index']);
 Route::get('/jugadores/{jugador}', [JugadorController::class, 'show']);
@@ -50,9 +42,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
 | LIGAS
-|--------------------------------------------------------------------------
 */
 Route::get('/ligas', [LigaController::class, 'index']);
 Route::get('/ligas/{liga}', [LigaController::class, 'show']);
@@ -64,9 +54,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
 | PARTIDOS
-|--------------------------------------------------------------------------
 */
 Route::get('/partidos', [PartidoController::class, 'index']);
 Route::get('/partidos/{partido}', [PartidoController::class, 'show']);
